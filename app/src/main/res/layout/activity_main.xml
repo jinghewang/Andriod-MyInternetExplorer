@@ -6,6 +6,15 @@
     android:orientation="vertical"
     tools:context="com.hbdworld.myinternetexplorer.MainActivity">
 
+
+    <EditText
+        android:id="@+id/url"
+        android:hint="请输入地址！"
+        android:singleLine="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,28 +22,46 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn"
+            android:id="@+id/home_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="1dp"
             android:layout_weight="5"
-            android:text="click me" />
+            android:text="Home" />
 
         <Button
-            android:id="@+id/btn2"
+            android:id="@+id/go_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="1dp"
             android:layout_weight="5"
-            android:text="click me2" />
+            android:text="Go" />
+
+        <Button
+            android:id="@+id/pre_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:layout_weight="5"
+            android:text="》" />
+
+        <Button
+            android:id="@+id/back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:layout_weight="5"
+            android:text="《" />
+
+        <Button
+            android:id="@+id/scan_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:layout_weight="5"
+            android:text="扫码" />
 
     </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
 
     <WebView
         android:id="@+id/webview"
