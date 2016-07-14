@@ -1,6 +1,9 @@
 package com.hbdworld.myinternetexplorer;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,7 +16,9 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
     EditText editText =null;
     private static final String TAG = "hbd";
     String homeUrl = "http://www.hbdfood.com/company/restaurant/shopInfo?shop_id=2902&table=2216";
+    private final int REQUEST_CODE = 0xa1;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,10 +126,41 @@ public class MainActivity extends AppCompatActivity {
         scanBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent();
+                //隐式指定
+                intent.setAction("com.google.zxing.client.android.SCAN");
+                //启动ZXing已经写好、且我们做小量修改后的CaptureActivity。
+                startActivityForResult(intent, REQUEST_CODE);
+
                 Toast.makeText(MainActivity.this, "scan", Toast.LENGTH_SHORT).show();
             }
         });
 
+        Button viewBtn = (Button)this.findViewById(R.id.view_btn);
+        viewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dialog dialog = new Dialog(MainActivity.this);
+                TextView textView = new TextView(MainActivity.this);
+                textView.setText(editText.getText());
+                GridLayout.LayoutParams layoutParams = new GridLayout.LayoutParams();
+                dialog.addContentView(textView,layoutParams);
+                dialog.show();
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //我们需要的结果返回
+        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            //result就是二维码扫描的结果。
+            String result = data.getStringExtra("scan_result");
+            //Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+            editText.setText(result);
+        }
     }
 
     private void afterExcute() {
