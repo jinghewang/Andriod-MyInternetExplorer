@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -32,6 +33,17 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    private class JsToJava
+    {
+        @JavascriptInterface
+        public void jsMethod(String paramFromJS)
+        {
+            //Log.i("CDH", paramFromJS);
+            System.out.println("js返回结果" + paramFromJS);//处理返回的结果
+        }
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(true);
         settings.setDatabaseEnabled(true);
+        mWebView.addJavascriptInterface(new JsToJava(),"stub");
         mWebView.setWebChromeClient(new WebChromeClient(){
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
@@ -108,6 +121,15 @@ public class MainActivity extends AppCompatActivity {
                 if (mWebView.canGoForward())
                     mWebView.goForward();
                 afterExcute();
+            }
+        });
+
+
+        Button jsBtn = (Button)this.findViewById(R.id.js_btn);
+        jsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mWebView.loadUrl("javascript:orderPayStatus('2016071315511013522637',5)");
             }
         });
 

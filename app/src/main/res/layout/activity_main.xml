@@ -68,6 +68,15 @@
             android:text="》" />
 
         <Button
+            android:id="@+id/js_btn"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:layout_weight="5"
+            android:text="js" />
+
+        <Button
             android:id="@+id/scan_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
